@@ -1,0 +1,57 @@
+/* WastelandHub - RobCo Industries Terminal Theme */
+/* Fallout-inspired green-on-black retro terminal aesthetic */
+
+Screen {
+    background: #002200;
+}
+
+Header {
+    background: #003300;
+    color: #00ff00;
+    content-align: center middle;
+}
+
+Tabs {
+    background: #001100;
+    color: #00ff00;
+    border: round #00ff00;
+}
+
+ContentSwitcher {
+    height: 1fr;
+    overflow: hidden;
+}
+
+RichLog {
+    color: #00ff00;
+    background: #001100;
+    border: round #00ff00;
+    padding: 1;
+}
+
+#tab-terminal {
+    height: 1fr;
+    overflow-y: auto;
+}
+
+#tab-diagnostics {
+    height: 1fr;
+    content-align: center middle;
+}
+
+.panel {
+    color: #00ff00;
+    background: #001100;
+    border: round #00ff00;
+    padding: 1 2;
+}
+
+Input {
+    color: #00ff00;
+    background: #001100;
+    border: none;
+}
+
+.blink {
+    text-style: blink;
+}

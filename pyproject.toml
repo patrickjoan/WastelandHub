@@ -1,0 +1,23 @@
+[project]
+name = "wastelandhub"
+version = "0.1.0"
+description = "RobCo terminal inspired program for managing Wasteland Hub services."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+  "mkdocs>=1.6.1",
+  "pytest-asyncio>=1.2.0",
+  "ruff>=0.14.1",
+  "textual>=6.3.0",
+  "textual-dev>=1.8.0",
+]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I", "N", "D", "B"]
+ignore = ["D203", "D213"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
