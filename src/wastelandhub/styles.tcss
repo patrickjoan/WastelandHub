@@ -5,12 +5,6 @@ Screen {
     background: #002200;
 }
 
-Header {
-    background: #003300;
-    color: #00ff00;
-    content-align: center middle;
-}
-
 Tabs {
     background: #001100;
     color: #00ff00;
