@@ -1,8 +1,9 @@
 from textual.app import App, ComposeResult
 from textual.reactive import reactive
-from textual.widgets import Header, Footer
+from textual.widgets import Footer, Header
 
-# from .screens.main_menu import MainMenuScreen
+from .screens.main_menu import MainMenuScreen
+
 # from .screens.hacking import HackingScreen
 # from .screens.logs_menu import LogsMenuScreen
 # from .widgets.typewriter import Typewriter
@@ -32,6 +33,13 @@ class WastelandHubApp(App):
     log_data = reactive({})
 
     def __init__(self, *args, **kwargs):
+        """Initialize the class instance.
+
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+
+        """
         super().__init__(*args, **kwargs)
 
         self.log_data = {
@@ -39,14 +47,6 @@ class WastelandHubApp(App):
             "DIARY_05": "Another day spent in the simulation. I swear I saw a ghoul on the third floor today. Management is lying to us.",
             "DOOR_CTRL": "SYSTEM ONLINE. Access Level 4 Required for override.",
         }
-
-    # App Initialization and Screen Registration
-    # Register all screens the app can navigate to
-    SCREENS = {
-        # 'main_menu': MainMenuScreen(),
-        # 'hacking': HackingScreen(),
-        # 'logs_menu': LogsMenuScreen(),
-    }
 
     def compose(self) -> ComposeResult:
         """Keep compose minimal to only the header and footer."""
@@ -58,14 +58,27 @@ class WastelandHubApp(App):
         """Called immediately after the app is mounted."""
         self.title = "Wasteland Hub - RobCo Terminal"
 
+        # Register all screens the app can navigate to as instance variables
+        self.screens = {
+            "main_menu": MainMenuScreen(),
+            # 'hacking': HackingScreen(),
+            # 'logs_menu': LogsMenuScreen(),
+        }
+
         # PUSH the initial MainMenuScreen onto the stack
-        # self.push_screen(self.SCREENS['main_menu']) # Uncomment when screen is ready
+        self.push_screen(self.screens["main_menu"])
+
+    def compose(self) -> ComposeResult:
+        """Keep compose minimal to only the header and footer."""
+        yield Header()
+        # The main screen content will be pushed dynamically via on_mount
+        yield Footer()
 
     # Reactive Watchers (The Controller)
 
     def watch_display_content(self, new_content: str) -> None:
-        """
-        Triggers the typewriter effect on the new content.
+        """Triggers the typewriter effect on the new content.
+
         This is the main display controller logic.
         """
         # Placeholder logic:
