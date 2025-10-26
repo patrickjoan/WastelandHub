@@ -37,20 +37,26 @@ class MainMenuScreen(Screen):
         with Container(id="menu-container"):
             # The title area
             with Center():
-                yield Static(":: ROBCO INDUSTRIES (TM) TERMINAL ::", classes="menu-title")
-                yield Static("-----------------------------------", classes="menu-divider")
+                yield Static(
+                    ":: ROBCO INDUSTRIES (TM) TERMINAL ::", classes="menu-title"
+                )
+                yield Static(
+                    "-----------------------------------", classes="menu-divider"
+                )
 
             # Interactive Buttons
             with Center():
                 yield Button(
                     "READ LOGS", id="logs", classes="menu-button", variant="primary"
                 )
-            with Center():    
+            with Center():
                 yield Button(
                     "HACK SYSTEM", id="hack", classes="menu-button", variant="primary"
                 )
-            with Center():   
-                yield Button("LOGOUT", id="logout", classes="menu-button", variant="error")
+            with Center():
+                yield Button(
+                    "LOGOUT", id="logout", classes="menu-button", variant="error"
+                )
 
         yield Footer()
 
@@ -79,4 +85,3 @@ class MainMenuScreen(Screen):
 
         else:
             self.app.log(f"Unknown button pressed: {event.button.id}")
-

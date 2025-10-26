@@ -2,11 +2,11 @@ from textual.app import App, ComposeResult
 from textual.reactive import reactive
 from textual.widgets import Footer, Header
 
-from .screens.main_menu import MainMenuScreen
+from wastelandhub.screens.main_menu import MainMenuScreen
 
-# from .screens.hacking import HackingScreen
-# from .screens.logs_menu import LogsMenuScreen
-# from .widgets.typewriter import Typewriter
+# from wastelandhub.screens.hacking import HackingScreen
+# from wastelandhub.screens.logs_menu import LogsMenuScreen
+# from wastelandhub.widgets.typewriter import Typewriter
 
 
 class WastelandHubApp(App):
@@ -54,7 +54,7 @@ class WastelandHubApp(App):
         # The main screen content will be pushed dynamically via on_mount
         yield Footer()
 
-    def on_mount(self) -> None:
+    async def on_mount(self) -> None:
         """Called immediately after the app is mounted."""
         self.title = "Wasteland Hub - RobCo Terminal"
 
@@ -65,14 +65,8 @@ class WastelandHubApp(App):
             # 'logs_menu': LogsMenuScreen(),
         }
 
-        # PUSH the initial MainMenuScreen onto the stack
-        self.push_screen(self.screens["main_menu"])
-
-    def compose(self) -> ComposeResult:
-        """Keep compose minimal to only the header and footer."""
-        yield Header()
-        # The main screen content will be pushed dynamically via on_mount
-        yield Footer()
+        # PUSH the initial MainMenuScreen onto the stack and wait for it to mount
+        await self.push_screen(self.screens["main_menu"])
 
     # Reactive Watchers (The Controller)
 
@@ -92,6 +86,10 @@ class WastelandHubApp(App):
             )
 
 
-if __name__ == "__main__":
+def main() -> None:
     app = WastelandHubApp()
     app.run()
+
+
+if __name__ == "__main__":
+    main()
