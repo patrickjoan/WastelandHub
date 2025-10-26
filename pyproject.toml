@@ -5,9 +5,7 @@ description = "RobCo terminal inspired program for managing Wasteland Hub servic
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-  "mkdocs>=1.6.1",
   "pytest-asyncio>=1.2.0",
-  "ruff>=0.14.1",
   "textual>=6.3.0",
   "textual-dev>=1.8.0",
 ]
@@ -17,7 +15,16 @@ line-length = 88
 select = ["E", "F", "W", "I", "N", "D", "B"]
 ignore = ["D203", "D213"]
 
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[project.scripts]
+wastelandhub = "wastelandhub.main:main"
+
 [dependency-groups]
 dev = [
-    "pytest>=8.4.2",
+  "pytest>=8.4.2",
+  "ruff>=0.14.1",
+  "mkdocs>=1.6.1",
 ]
