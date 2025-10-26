@@ -78,7 +78,6 @@ class MainMenuScreen(Screen):
             self.app.log("Navigation: Pushing to hacking screen.")  # Placeholder log
 
         elif event.button.id == "logout":
-            app.logged_in_user = "guest"
 
             # Since we don't have a login screen, we'll just quit for now
             self.app.exit("Logged out successfully.")
