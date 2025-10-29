@@ -5,7 +5,7 @@ from textual.widgets import Footer, Header
 from wastelandhub.screens.main_menu import MainMenuScreen
 
 # from wastelandhub.screens.hacking import HackingScreen
-# from wastelandhub.screens.logs_menu import LogsMenuScreen
+from wastelandhub.screens.logs_menu import LogsMenuScreen
 # from wastelandhub.widgets.typewriter import Typewriter
 
 
@@ -62,7 +62,7 @@ class WastelandHubApp(App):
         self.screens = {
             "main_menu": MainMenuScreen(),
             # 'hacking': HackingScreen(),
-            # 'logs_menu': LogsMenuScreen(),
+            "logs_menu": LogsMenuScreen(),
         }
 
         # PUSH the initial MainMenuScreen onto the stack and wait for it to mount

@@ -69,8 +69,7 @@ class MainMenuScreen(Screen):
 
         if event.button.id == "logs":
             # PUSH the logs menu screen onto the stack
-            # app.push_screen(app.SCREENS['logs_menu']) # Uncomment when logs_menu is defined
-            self.app.log("Navigation: Pushing to logs_menu.")  # Placeholder log
+            await app.push_screen(app.screens["logs_menu"])
 
         elif event.button.id == "hack":
             # PUSH the hacking screen onto the stack
@@ -78,7 +77,6 @@ class MainMenuScreen(Screen):
             self.app.log("Navigation: Pushing to hacking screen.")  # Placeholder log
 
         elif event.button.id == "logout":
-
             # Since we don't have a login screen, we'll just quit for now
             self.app.exit("Logged out successfully.")
 
