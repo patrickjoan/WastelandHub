@@ -5,6 +5,106 @@ Screen {
     background: #002200;
 }
 
+/* Button Styling */
+Button {
+    color: #00ff00;
+    background: #001100;
+    border: round #00ff00;
+    margin: 1;
+    min-width: 16;
+}
+
+Button:hover {
+    background: #003300;
+    text-style: bold;
+}
+
+Button:focus {
+    border: thick #00ff00;
+    text-style: bold;
+}
+
+Button.-primary {
+    color: #001100;
+    background: #00ff00;
+}
+
+Button.-error {
+    color: #ff0000;
+    background: #220000;
+    border: round #ff0000;
+}
+
+/* Log Menu Specific Styles */
+#logs-sidebar {
+    width: 30%;
+    height: 100%;
+    border: round #00ff00;
+    padding: 1;
+    margin-right: 1;
+}
+
+.sidebar-title {
+    color: #00ff00;
+    text-style: bold;
+    text-align: center;
+    margin-bottom: 1;
+}
+
+#logs-container {
+    height: 1fr;
+    padding: 1;
+}
+
+.log-button {
+    width: 100%;
+    margin: 0 0 1 0;
+    color: #00ff00;
+    background: #001100;
+    border: round #00ff00;
+}
+
+.log-button:hover {
+    background: #003300;
+}
+
+.log-button:focus {
+    border: thick #00ff00;
+    background: #003300;
+}
+
+.main-display {
+    width: 70%;
+    height: 100%;
+    color: #00ff00;
+    background: #001100;
+    border: round #00ff00;
+    padding: 1;
+}
+
+/* Main Menu Container */
+#menu-container {
+    align: center middle;
+    content-align: center middle;
+    width: 100%;
+    padding: 1 2;
+    border: round #00ff00;
+}
+
+.menu-button {
+    width: auto;
+    align: center top;
+    margin-top: 1;
+    min-width: 20;
+}
+
+.menu-title, .menu-divider {
+    content-align: center middle;
+    width: 100%;
+    color: #00ff00;
+}
+
+/* Legacy styles for compatibility */
 Tabs {
     background: #001100;
     color: #00ff00;
@@ -48,4 +148,19 @@ Input {
 
 .blink {
     text-style: blink;
+}
+
+/* Typography enhancements */
+Static {
+    color: #00ff00;
+}
+
+Header {
+    background: #001100;
+    color: #00ff00;
+}
+
+Footer {
+    background: #001100;
+    color: #00ff00;
 }

@@ -5,9 +5,7 @@ from textual.widgets import Button, Footer, Header, Static
 
 
 class MainMenuScreen(Screen):
-    """The main navigational screen for the RobCo Terminal.
-    Displays options like viewing logs, hacking, and logging out.
-    """
+    """Main menu screen for navigation."""
 
     DEFAULT_CSS = """
     #menu-container {
@@ -31,54 +29,48 @@ class MainMenuScreen(Screen):
     """
 
     def compose(self) -> ComposeResult:
-        """Compose the screen structure: Header, central menu, and Footer."""
+        """Compose the main menu screen."""
         yield Header()
-
+        
         with Container(id="menu-container"):
-            # The title area
             with Center():
-                yield Static(
-                    ":: ROBCO INDUSTRIES (TM) TERMINAL ::", classes="menu-title"
-                )
-                yield Static(
-                    "-----------------------------------", classes="menu-divider"
-                )
-
-            # Interactive Buttons
+                yield Static(">> ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL <<", classes="menu-title")
+            
             with Center():
-                yield Button(
-                    "READ LOGS", id="logs", classes="menu-button", variant="primary"
-                )
+                yield Static("=" * 50, classes="menu-divider")
+            
             with Center():
-                yield Button(
-                    "HACK SYSTEM", id="hack", classes="menu-button", variant="primary"
-                )
+                yield Button("LOGS", id="logs", variant="primary", classes="menu-button")
+            
             with Center():
-                yield Button(
-                    "LOGOUT", id="logout", classes="menu-button", variant="error"
-                )
-
+                yield Button("HACK", id="hack", variant="primary", classes="menu-button")
+            
+            with Center():
+                yield Button("LOGOUT", id="logout", variant="error", classes="menu-button")
+        
         yield Footer()
+
+    def on_show(self) -> None:
+        """Restore focus to the logs button when shown."""
+        self.call_after_refresh(self._focus_logs_button)
+
+    def on_screen_resume(self) -> None:
+        """Restore focus when resuming the screen."""
+        self.call_after_refresh(self._focus_logs_button)
+
+    def _focus_logs_button(self) -> None:
+        """Focus on the logs button."""
+        try:
+            logs_button = self.query_one("#logs", Button)
+            logs_button.focus()
+        except Exception:
+            pass
 
     # --- Controller Logic: Event Handlers ---
 
     async def on_button_pressed(self, event: Button.Pressed) -> None:
-        """Handles navigation when a menu button is pressed."""
-        # Get a reference to the App for state and navigation
-        app = self.app
-
+        """Handle navigation when a button is pressed."""
         if event.button.id == "logs":
-            # PUSH the logs menu screen onto the stack
-            await app.push_screen(app.screens["logs_menu"])
-
-        elif event.button.id == "hack":
-            # PUSH the hacking screen onto the stack
-            # app.push_screen(app.SCREENS['hacking']) # Uncomment when hacking screen is defined
-            self.app.log("Navigation: Pushing to hacking screen.")  # Placeholder log
-
+            await self.app.push_screen("logs_menu")
         elif event.button.id == "logout":
-            # Since we don't have a login screen, we'll just quit for now
-            self.app.exit("Logged out successfully.")
-
-        else:
-            self.app.log(f"Unknown button pressed: {event.button.id}")
+            self.app.exit()
