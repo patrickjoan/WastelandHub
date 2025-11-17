@@ -1,5 +1,5 @@
 from textual.app import ComposeResult
-from textual.containers import Container, Center
+from textual.containers import Center, Container
 from textual.screen import Screen
 from textual.widgets import Button, Footer, Header, Static
 
@@ -7,47 +7,35 @@ from textual.widgets import Button, Footer, Header, Static
 class MainMenuScreen(Screen):
     """Main menu screen for navigation."""
 
-    DEFAULT_CSS = """
-    #menu-container {
-        align: center middle;
-        content-align: center middle;
-        width: 100%;
-        padding: 1 2;
-        border: round #00ff00;
-    }
-
-    .menu-button {
-        width: auto;
-        align: center top;
-        margin-top: 1;
-    }
-    
-    .menu-title, .menu-divider {
-        content-align: center middle;
-        width: 100%;
-    }
-    """
-
     def compose(self) -> ComposeResult:
         """Compose the main menu screen."""
         yield Header()
-        
+
         with Container(id="menu-container"):
             with Center():
-                yield Static(">> ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL <<", classes="menu-title")
-            
+                yield Static(
+                    ">> ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL <<",
+                    classes="menu-title",
+                )
+
             with Center():
                 yield Static("=" * 50, classes="menu-divider")
-            
+
             with Center():
-                yield Button("LOGS", id="logs", variant="primary", classes="menu-button")
-            
+                yield Button(
+                    "LOGS", id="logs", variant="primary", classes="menu-button"
+                )
+
             with Center():
-                yield Button("HACK", id="hack", variant="primary", classes="menu-button")
-            
+                yield Button(
+                    "HACK", id="hack", variant="primary", classes="menu-button"
+                )
+
             with Center():
-                yield Button("LOGOUT", id="logout", variant="error", classes="menu-button")
-        
+                yield Button(
+                    "LOGOUT", id="logout", variant="error", classes="menu-button"
+                )
+
         yield Footer()
 
     def on_show(self) -> None:

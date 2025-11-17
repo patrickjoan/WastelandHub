@@ -25,8 +25,9 @@ Button:focus {
 }
 
 Button.-primary {
-    color: #001100;
-    background: #00ff00;
+    color: #00FF00;
+    background: #003300;
+    border: round #00ff00;
 }
 
 Button.-error {
@@ -58,7 +59,7 @@ Button.-error {
 
 .log-button {
     width: 100%;
-    margin: 0 0 1 0;
+    margin: 0 0 0 0;
     color: #00ff00;
     background: #001100;
     border: round #00ff00;
