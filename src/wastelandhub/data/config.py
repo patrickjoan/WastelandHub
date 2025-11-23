@@ -41,12 +41,15 @@ class WastelandConfig:
         return cls()
 
     def save(self) -> None:
-        """Save configuration to file."""
+        """Save configuration to file and invalidate cache."""
         config_path = xdg_config_home() / "wastelandhub" / "config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(config_path, 'w', encoding="utf-8") as f:
             json.dump(self.__dict__, f, indent=2)
+        
+        # Invalidate cache so next get_config() reads fresh data
+        get_config.cache_clear()
 
     @property
     def config_dir(self) -> Path:
@@ -61,5 +64,8 @@ class WastelandConfig:
 
 @lru_cache(maxsize=1)
 def get_config() -> WastelandConfig:
-    """Get the global configuration instance."""
+    """Get the global configuration instance (cached for performance).
+    
+    Note: Cache is automatically invalidated when save() is called.
+    """
     return WastelandConfig.load()

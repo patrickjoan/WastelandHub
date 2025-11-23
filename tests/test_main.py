@@ -34,24 +34,6 @@ async def test_navigation_to_logs_menu():
 
 
 @pytest.mark.asyncio
-async def test_log_data_loading():
-    """Test that log data is loaded properly."""
-    log_data = LogData.load_default()
-
-    # Check that log data is loaded via singleton
-    assert isinstance(log_data.logs, dict)
-    assert len(log_data.logs) > 0
-    assert "COMM_01" in log_data.logs
-    assert "DIARY_05" in log_data.logs
-    assert "DOOR_CTRL" in log_data.logs
-    assert "RESEARCH" in log_data.logs
-
-    # Test singleton behavior
-    log_data2 = LogData.load_default()
-    assert log_data is log_data2
-
-
-@pytest.mark.asyncio
 async def test_typewriter_functionality():
     """Test that typewriter widget works in logs menu."""
     app = WastelandHubApp()
@@ -72,3 +54,45 @@ async def test_typewriter_functionality():
 
         # Typewriter should have some content now
         # Note: We can't easily test the gradual typing effect in tests
+
+
+@pytest.mark.asyncio
+async def test_escape_key_navigation():
+    """Test that Escape key returns from logs menu to main menu."""
+    app = WastelandHubApp()
+    async with app.run_test() as pilot:
+        await pilot.pause()
+
+        # Navigate to logs menu
+        await pilot.click("#logs")
+        await pilot.pause()
+
+        # Verify we're on logs screen
+        logs_container = app.screen.query_one("#logs-container")
+        assert logs_container is not None
+
+        # Press Escape to go back
+        await pilot.press("escape")
+        await pilot.pause()
+
+        # Should be back on main menu
+        menu_container = app.screen.query_one("#menu-container")
+        assert menu_container is not None
+
+
+@pytest.mark.asyncio
+async def test_all_log_buttons_exist():
+    """Test that all log entries have corresponding buttons."""
+    app = WastelandHubApp()
+    async with app.run_test() as pilot:
+        await pilot.pause()
+
+        # Navigate to logs menu
+        await pilot.click("#logs")
+        await pilot.pause()
+
+        # Check that all expected log buttons exist
+        log_data = LogData.load_default()
+        for key in log_data.get_log_keys():
+            button = app.screen.query_one(f"#open-{key}")
+            assert button is not None

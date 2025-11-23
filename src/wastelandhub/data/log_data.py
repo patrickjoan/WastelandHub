@@ -5,15 +5,19 @@ from functools import lru_cache
 from typing import Dict
 
 
-@dataclass
+@dataclass(frozen=True)
 class LogData:
-    """Container for terminal log data."""
+    """Immutable container for terminal log data.
+    
+    This is a singleton accessed via load_default(). The data is frozen
+    to prevent accidental mutations that would break the cached singleton.
+    """
     logs: Dict[str, str]
 
     @classmethod
     @lru_cache(maxsize=1)
     def load_default(cls) -> "LogData":
-        """Load default log data with expanded content."""
+        """Load default log data with expanded content (cached singleton)."""
         return cls(logs={
             "COMM_01": (
                 ">> RE: FUSION CELL STOCK\n"
@@ -76,10 +80,6 @@ class LogData:
     def get_log(self, key: str) -> str:
         """Get a specific log by key."""
         return self.logs.get(key, "Log not found.")
-
-    def add_log(self, key: str, content: str) -> None:
-        """Add a new log entry."""
-        self.logs[key] = content
 
     def get_log_keys(self) -> list[str]:
         """Get all available log keys."""
