@@ -19,7 +19,7 @@ except ImportError:
 @dataclass
 class WastelandConfig:
     """Configuration for WastelandHub application."""
-    typewriter_cps: int = 20
+    typewriter_cps: int = 100
     terminal_difficulty: int = 50
     default_user: str = "guest"
     theme: str = "robco_green"

@@ -5,6 +5,7 @@ from textual.screen import Screen
 from textual.widgets import Button, Footer, Header, Static
 
 from wastelandhub.data.log_data import LogData
+from wastelandhub.data.config import get_config
 from wastelandhub.widgets.typewriter import Typewriter
 
 
@@ -56,8 +57,9 @@ class LogsMenuScreen(Screen):
             log_data = LogData.load_default()
             if key in log_data.logs:
                 try:
+                    config = get_config()
                     typewriter = self.query_one("#typewriter", Typewriter)
-                    typewriter.start(log_data.get_log(key), cps=20)
+                    typewriter.start(log_data.get_log(key), cps=config.typewriter_cps)
                 except Exception as e:
                     # Add debugging to help identify issues
                     self.app.log(f"Typewriter error for key {key}: {e}")

@@ -9,7 +9,7 @@ def test_config_defaults():
     """Test that WastelandConfig has correct default values."""
     config = WastelandConfig()
     
-    assert config.typewriter_cps == 20
+    assert config.typewriter_cps == 100
     assert config.terminal_difficulty == 50
     assert config.default_user == "guest"
     assert config.theme == "robco_green"
@@ -54,7 +54,7 @@ def test_config_load_nonexistent():
         
         try:
             config = WastelandConfig.load()
-            assert config.typewriter_cps == 20  # Should have defaults
+            assert config.typewriter_cps == 100  # Should have defaults
             assert config.theme == "robco_green"
         finally:
             config_module.xdg_config_home = original
@@ -72,7 +72,7 @@ def test_config_load_corrupted(tmp_path, monkeypatch):
     
     # Should return defaults without crashing
     config = WastelandConfig.load()
-    assert config.typewriter_cps == 20
+    assert config.typewriter_cps == 100
 
 
 def test_config_cache_invalidation(tmp_path, monkeypatch):
@@ -84,7 +84,7 @@ def test_config_cache_invalidation(tmp_path, monkeypatch):
     
     # First call creates default config
     config1 = get_config()
-    assert config1.typewriter_cps == 20
+    assert config1.typewriter_cps == 100
     
     # Create new config with updated value and save (should invalidate cache)
     config_new = WastelandConfig(typewriter_cps=50)
