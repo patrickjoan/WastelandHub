@@ -78,7 +78,6 @@ def test_config_load_corrupted(tmp_path, monkeypatch):
 
 def test_config_cache_invalidation(tmp_path, monkeypatch):
     """Test that save() invalidates get_config() cache."""
-    config_dir = tmp_path / "config" / "wastelandhub"
     monkeypatch.setattr("wastelandhub.data.config.xdg_config_home", lambda: tmp_path / "config")
     
     # Clear cache before test
