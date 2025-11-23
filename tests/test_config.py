@@ -88,9 +88,9 @@ def test_config_cache_invalidation(tmp_path, monkeypatch):
     config1 = get_config()
     assert config1.typewriter_cps == 20
     
-    # Modify and save (should invalidate cache)
-    config1.typewriter_cps = 50
-    config1.save()
+    # Create new config with updated value and save (should invalidate cache)
+    config_new = WastelandConfig(typewriter_cps=50)
+    config_new.save()
     
     # Next call should reload from disk with new value
     config2 = get_config()
