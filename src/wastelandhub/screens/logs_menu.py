@@ -1,9 +1,11 @@
+from textual import on
 from textual.app import ComposeResult
-from textual.containers import VerticalScroll, Horizontal, Vertical
+from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import Screen
 from textual.widgets import Button, Footer, Header, Static
-from textual import on
 
+from wastelandhub.data.log_data import LogData
+from wastelandhub.data.config import get_config
 from wastelandhub.widgets.typewriter import Typewriter
 
 
@@ -17,17 +19,17 @@ class LogsMenuScreen(Screen):
     def compose(self) -> ComposeResult:
         """Compose the screen with dynamic log buttons and a typewriter display."""
         yield Header()
-        
+
         with Horizontal():
             with Vertical(id="logs-sidebar"):
                 yield Static(">> AVAILABLE LOGS <<", classes="sidebar-title")
                 with VerticalScroll(id="logs-container"):
                     # Generate buttons for each log key
-                    for key in self.app.log_data.keys():
+                    for key in LogData.load_default().get_log_keys():
                         yield Button(f"OPEN {key}", id=f"open-{key}", classes="log-button")
-            
+
             yield Typewriter(id="typewriter", classes="main-display")
-        
+
         yield Footer()
 
     def on_show(self) -> None:
@@ -35,7 +37,7 @@ class LogsMenuScreen(Screen):
         self.call_after_refresh(self._focus_first_button)
 
     def on_screen_resume(self) -> None:
-        """Restore focus when resuming the screen.""" 
+        """Restore focus when resuming the screen."""
         self.call_after_refresh(self._focus_first_button)
 
     def _focus_first_button(self) -> None:
@@ -52,10 +54,12 @@ class LogsMenuScreen(Screen):
         button_id = event.button.id
         if button_id and button_id.startswith("open-"):
             key = button_id[5:]  # Remove "open-" prefix
-            if key in self.app.log_data:
+            log_data = LogData.load_default()
+            if key in log_data.logs:
                 try:
+                    config = get_config()
                     typewriter = self.query_one("#typewriter", Typewriter)
-                    typewriter.start(self.app.log_data[key], cps=20)
+                    typewriter.start(log_data.get_log(key), cps=config.typewriter_cps)
                 except Exception as e:
                     # Add debugging to help identify issues
                     self.app.log(f"Typewriter error for key {key}: {e}")
