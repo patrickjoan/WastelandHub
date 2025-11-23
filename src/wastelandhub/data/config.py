@@ -35,8 +35,8 @@ class WastelandConfig:
                 with open(config_path, encoding="utf-8") as f:
                     data = json.load(f)
                     return cls(**{k: v for k, v in data.items() if k in cls.__dataclass_fields__})
-            except (json.JSONDecodeError, TypeError, FileNotFoundError):
-                # Return default config if file is corrupted or missing
+            except (json.JSONDecodeError, TypeError):
+                # Return default config if file is corrupted
                 pass
         return cls()
 
