@@ -10,16 +10,6 @@ A retro terminal interface inspired by RobCo Industries terminals from the Fallo
 - 🎨 **Textual-Powered** - Modern TUI framework with rich formatting and layouts
 - 🔧 **Modular Architecture** - Clean separation of data, screens, and widgets
 
-## Screenshots
-
-```
->> ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL <<
-==================================================
-
-                      LOGS
-                      HACK
-                     LOGOUT
-```
 
 ## Requirements
 
